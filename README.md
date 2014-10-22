@@ -14,9 +14,12 @@ library for the Arduino.
    - selectable blocking/non-blocking modes
 
   Author:          Bernhard Schneider <bernhard@neaptide.org>
+  
   Available from:  https://github.com/bersch/MCP3424
+  
   License:         GNU LGPL
 
   The MCP3424 is a low-cost sigma delta 18Bit ADC with I2C Interface.
-  The library may be also used with MCP3421, MCP3422, MCP3423, MCP3425, MCP3426, MCP3427, MCP3428
+  
+  The library may also be used for MCP3421, MCP3422, MCP3423, MCP3425, MCP3426, MCP3427, MCP3428
 
