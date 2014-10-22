@@ -52,9 +52,6 @@ typedef struct  {
     };
 } _ConfReg;
 
-extern void msg(char *fmt, int32_t val);
-extern void showconf(char *fmt, _ConfReg);
-
 class MCP3424 {
 
   private:
