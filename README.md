@@ -3,6 +3,8 @@ MCP3424
 
 library for the Arduino.
 
+  The MCP3424 is a low-cost sigma delta 18Bit ADC with I2C Interface.
+
   This library implements the following features:
 
    - channel setting by address or pin selection
@@ -17,9 +19,8 @@ library for the Arduino.
   Available from:  https://github.com/bersch/MCP3424<br>
   License:         GNU LGPL<br>
 
-  The MCP3424 is a low-cost sigma delta 18Bit ADC with I2C Interface.
   
-  The library may also be used for MCP3421, MCP3422, MCP3423, MCP3425, MCP3426, MCP3427, MCP3428
+  This library may also be used for MCP3421, MCP3422, MCP3423, MCP3425, MCP3426, MCP3427, MCP3428
 
   ### See also: 
   
