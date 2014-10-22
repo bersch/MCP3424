@@ -22,7 +22,7 @@ library for the Arduino.
   
   This library may also be used for MCP3421, MCP3422, MCP3423, MCP3425, MCP3426, MCP3427, MCP3428
 
-  ### See also: 
+  #### See also: 
   
   ADC | Link
   ------------ | -------------
