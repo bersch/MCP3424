@@ -3,7 +3,7 @@ MCP3424
 
 library for the Arduino.
 
-  The MCP3424 is a low-cost sigma delta 18Bit ADC with I2C Interface.
+  The MCP3424 is a low-cost 18Bit Sigma-Delta ADC with I2C Interface.
 
   This library implements the following features:
 
