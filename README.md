@@ -12,7 +12,8 @@ library for the Arduino.
    - selectable sample rates 12,14,16 and 18 bit
    - selectable PGA gains: x1, x2, x4, x8
    - conversion errors: overflow, underflow, i2c, progress, timeout
-   - general call request
+   - general call requests
+   - highest valid gain selection
    - selectable blocking/non-blocking modes
 
   Author:          Bernhard Schneider <bernhard@neaptide.org><br>
