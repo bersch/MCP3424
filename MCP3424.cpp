@@ -32,7 +32,7 @@ uint8_t MCP3424::startNewConversion(Channel ch) {
     return writeConfReg(ch);
 }
 
-/* tries find highest valid gain */
+/* tries to find the highest gain */
 Gain MCP3424::findGain(double& value) const {
 
     uint8_t g;
