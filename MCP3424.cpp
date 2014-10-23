@@ -102,8 +102,8 @@ ConvStatus MCP3424::nb_read(Channel ch, double & value) {
 
     value = 0.001 * lval / (1 << (cread.srate << 1)) / ( 1 << cread.pga);
 
-    if (value >  2.04800) return R_OVERFLOW;
-    if (value < -2.04800) return R_UNDERFLOW;
+    if (value >  2.048) return R_OVERFLOW;
+    if (value < -2.048) return R_UNDERFLOW;
 
     return R_OK;
 }
