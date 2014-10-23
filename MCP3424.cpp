@@ -3,7 +3,7 @@
  *   
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public License
- *  version 2.1 as published by the Free Software Foundation.
+ *  version 3 as published by the Free Software Foundation.
  * 
  */
 
@@ -14,7 +14,7 @@ MCP3424::MCP3424 (uint8_t address): addr(address) { }
 
 MCP3424::MCP3424 (PinType adr0, PinType adr1): addr(pin_addr[adr0*3+adr1]) {}
 
-uint8_t MCP3424::generalCall(GCall_t call) {
+uint8_t MCP3424::generalCall(GCall_t call) const {
     Wire.beginTransmission(0x00);
     Wire.write(call);
     return Wire.endTransmission();
@@ -31,6 +31,19 @@ uint8_t MCP3424::startNewConversion(Channel ch) {
     creg[ch].rdy = 1;
     return writeConfReg(ch);
 }
+
+/* tries find highest valid gain */
+Gain MCP3424::findGain(double& value) const {
+
+    uint8_t g;
+    for(g = GAINx1; g <= GAINx8; g++) {
+      if (abs(value) * (1<<(g+1)) >= 2.048) {
+        return (Gain)g;
+      }
+    } 
+    return GAINx8;
+}    
+
 
 ConvStatus MCP3424::read(Channel ch, double& value, bool blocking) {
 
@@ -87,25 +100,11 @@ ConvStatus MCP3424::nb_read(Channel ch, double & value) {
         lval = (b2 << 8) | b3;
     }
 
-    ConvStatus err = R_OK;
-    switch (cread.srate) {
-      case SR18B: if (lval ==  131071L) err = R_OVERFLOW;
-                    if (lval == -131072L) err = R_UNDERFLOW;
-                  break;
-      case SR16B: if (lval ==  32767L) err = R_OVERFLOW;
-                    if (lval == -32768L) err = R_UNDERFLOW;
-                  break;
-      case SR14B: if (lval ==  8191L) err = R_OVERFLOW;
-                    if (lval == -8192L) err = R_UNDERFLOW;
-                  break;
-      case SR12B: if (lval ==  2047L) err = R_OVERFLOW;
-                    if (lval == -2048L) err = R_UNDERFLOW;
-                  break;
-      default: break;
-    };
-
     value = 0.001 * lval / (1 << (cread.srate << 1)) / ( 1 << cread.pga);
 
-    return err;
+    if (value >=  2.04800) return R_OVERFLOW;
+    if (value <= -2.04800) return R_UNDERFLOW;
+
+    return R_OK;
 }
 

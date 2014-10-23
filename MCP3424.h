@@ -3,7 +3,7 @@
  *   
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public License
- *  version 2.1 as published by the Free Software Foundation.
+ *  version 3 as published by the Free Software Foundation.
  * 
  */
 
@@ -26,7 +26,7 @@ typedef enum { R_OK, R_UNDERFLOW, R_OVERFLOW, R_I2C, R_IN_PROGRESS, R_TIMEOUT } 
 typedef enum { GC_LATCH=0x04, GC_RESET=0x06, GC_CONVERSION=0x08 } GCall_t;
 
 //const uint16_t  conv_time[]  = {1000/176, 1000/44, 1000/11, 100000/275};
-const uint16_t  conv_time[]  = { 30, 40, 90, 290};
+const uint16_t  conv_time[]  = { 30, 40, 90, 290}; // FIXME: have to be hw indep.
 const uint8_t pin_addr[] = { 
     0b1101000, 0b1101010, 0b1101001,
     0b1101100, 0b1101110, 0b1101101,
@@ -52,9 +52,6 @@ typedef struct  {
     };
 } _ConfReg;
 
-extern void msg(char *fmt, int32_t val);
-extern void showconf(char *fmt, _ConfReg);
-
 class MCP3424 {
 
   private:
@@ -71,9 +68,11 @@ class MCP3424 {
 
             MCP3424 (PinType, PinType);
 
-            uint8_t generalCall(GCall_t);
+            uint8_t generalCall(GCall_t) const;
 
             uint8_t startNewConversion(Channel);
+
+            Gain findGain(double& value) const;
 
             ConvStatus read(Channel ch, double& value, bool blocking=true);
 
