@@ -75,9 +75,7 @@ ConvStatus MCP3424::nb_read(Channel ch, double & value) {
 
     Wire.requestFrom(addr, (uint8_t)((cwrite.srate == SR18B)?4:3));
 
-    uint8_t bytes = Wire.available();
-
-    if (creg[ch].srate == SR18B && bytes < ((cwrite.srate == SR18B)?4:3))
+    if (Wire.available() < ((cwrite.srate == SR18B)?4:3))
       return R_I2C;
 
     b2 = Wire.read();
