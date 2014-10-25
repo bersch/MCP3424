@@ -36,11 +36,10 @@ uint8_t MCP3424::startNewConversion(Channel ch) {
 Gain MCP3424::findGain(double& value) const {
 
     uint8_t g;
-    for(g = GAINx1; g <= GAINx8; g++) {
-      if (abs(value) * (1<<(g+1)) >= 2.048) {
+    for(g = GAINx1; g <= GAINx8; g++) 
+      if (abs(value) * (1<<(g+1)) >= 2.048) 
         return (Gain)g;
-      }
-    } 
+        
     return GAINx8;
 }    
 
