@@ -29,6 +29,6 @@ library for the Arduino.
   ------------ | -------------
   **MCP3421** | http://ww1.microchip.com/downloads/en/DeviceDoc/22003e.pdf<br>
   **MCP3422/3/4** | http://ww1.microchip.com/downloads/en/DeviceDoc/22088b.pdf<br>
-  **MCP3425** | http://ww1.microchip.com/downloads/en/DeviceDoc/22088b.pdf<br>
-  **MCP3426/7/8** | http://ww1.microchip.com/downloads/en/DeviceDoc/22088b.pdf<br>
+  **MCP3425** | http://ww1.microchip.com/downloads/en/DeviceDoc/22072b.pdf<br>
+  **MCP3426/7/8** | http://ww1.microchip.com/downloads/en/DeviceDoc/22226a.pdf<br>
   
