@@ -14,7 +14,7 @@ library for the Arduino.
    - conversion errors: overflow, underflow, i2c, progress, timeout
    - selectable blocking/non-blocking modes
    - highest valid gain selection
-   - general call requests
+   - general call requests             
 
 
   Author:          Bernhard Schneider <bernhard@neaptide.org><br>
