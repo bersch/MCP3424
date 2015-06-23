@@ -15,7 +15,7 @@ library for the Arduino.
    - selectable blocking/non-blocking modes
    - highest valid gain selection
    - general call requests
-   
+
   Author:          Bernhard Schneider <bernhard@neaptide.org><br>
   Available from:  https://github.com/bersch/MCP3424<br>
   License:         GNU LGPL<br>
