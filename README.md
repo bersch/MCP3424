@@ -11,10 +11,10 @@ library for the Arduino.
    - continuous and one_shot modes
    - selectable sample rates 12,14,16 and 18 bit
    - selectable PGA gains: x1, x2, x4, x8
-   - conversion errors: overflow, underflow, i2c, progress, timeout
+   - error detection: overflow, underflow, i2c, progress, timeout
    - selectable blocking/non-blocking modes
    - highest valid gain selection
-   - general call requests             
+   - general call signalling            
 
 
   Author:          Bernhard Schneider <bernhard@neaptide.org><br>
