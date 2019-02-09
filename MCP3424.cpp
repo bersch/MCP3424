@@ -95,8 +95,8 @@ ConvStatus MCP3424::nb_read(Channel ch, double & value) {
       return R_IN_PROGRESS;
 
     if (cread.srate == SR18B) {
-        lval = (long)(int)(char)b2 << 16;
-        lval |= (uint16_t)b3 << 8 | b4;
+        lval = ~((( b2 & 0x80) << 16 ) - 1 ) // sign
+            | b2 << 16 | b3 << 8 | b4;
     } else {
         lval = (b2 << 8) | b3;
     }
