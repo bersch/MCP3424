@@ -33,12 +33,9 @@ uint8_t MCP3424::startNewConversion(Channel ch) {
 }
 
 /* tries to find the highest gain */
-Gain MCP3424::findGain(double& value) const {
+Gain MCP3424::findGain(double value) const {
 
     uint8_t g;
-    
-    if (value < 0)
-        value *= -1.0f;
     
     for(g = GAINx1; g <= GAINx8; g++) 
       if (abs(value) * (1<<(g+1)) >= 2.048) 
@@ -46,7 +43,6 @@ Gain MCP3424::findGain(double& value) const {
         
     return GAINx8;
 }    
-
 
 ConvStatus MCP3424::read(Channel ch, double& value, bool blocking) {
 
