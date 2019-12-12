@@ -54,7 +54,7 @@ ConvStatus MCP3424::read(Channel ch, double& value, bool blocking) {
     ConvStatus err;
     uint32_t t0 = millis();
     do {
-        if ( (millis() - t0) > (conv_time[creg[ch].srate]) )
+        if ( (millis() - t0) > (conv_time[creg[ch].res]) )
           return R_TIMEOUT;
         err = nb_read(ch, value);
     } while (err == R_IN_PROGRESS);
@@ -74,15 +74,15 @@ ConvStatus MCP3424::nb_read(Channel ch, double & value) {
       else
         startNewConversion(ch);
 
-    Wire.requestFrom(addr, (uint8_t)((cwrite.srate == SR18B)?4:3));
+    Wire.requestFrom(addr, (uint8_t)((cwrite.res == R18B)?4:3));
 
-    if (Wire.available() < ((cwrite.srate == SR18B)?4:3))
+    if (Wire.available() < ((cwrite.res == R18B)?4:3))
       return R_I2C;
 
     b2 = Wire.read();
     b3 = Wire.read();
 
-    if (creg[ch].srate == SR18B)
+    if (creg[ch].res == R18B)
       b4 = Wire.read();
 
     cread.reg = Wire.read();
@@ -92,14 +92,14 @@ ConvStatus MCP3424::nb_read(Channel ch, double & value) {
     if (cread.rdy == 1)
       return R_IN_PROGRESS;
 
-    if (cread.srate == SR18B) {
+    if (cread.res == R18B) {
         lval = ~((( b2 & 0x80) << 16 ) - 1 ) // sign
             | b2 << 16 | b3 << 8 | b4;
     } else {
         lval = (b2 << 8) | b3;
     }
 
-    value = 0.001 * lval / (1 << (cread.srate << 1)) / ( 1 << cread.pga);
+    value = 0.001 * lval / (1 << (cread.res << 1)) / ( 1 << cread.pga);
 
     if (value >  2.048) return R_OVERFLOW;
     if (value < -2.048) return R_UNDERFLOW;

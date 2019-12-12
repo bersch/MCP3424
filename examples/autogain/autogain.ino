@@ -31,7 +31,7 @@ void loop() {
         ConvStatus err = adc.read(c.ch, value);
         if (err == R_OK) {
             show_v(value, c);
-            c.srate = R18B;
+            c.res = R18B;
             c.pga = adc.findGain(value);
             err = adc.read(c.ch, value);
             if (err == R_OK) {
