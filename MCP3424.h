@@ -72,7 +72,7 @@ class MCP3424 {
 
             uint8_t startNewConversion(Channel);
 
-            Gain findGain(double& value) const;
+            Gain findGain(double value) const;
 
             ConvStatus read(Channel ch, double& value, bool blocking=true);
 

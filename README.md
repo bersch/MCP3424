@@ -11,10 +11,11 @@ library for the Arduino.
    - continuous and one_shot modes
    - selectable sample rates 12,14,16 and 18 bit
    - selectable PGA gains: x1, x2, x4, x8
-   - conversion errors: overflow, underflow, i2c, progress, timeout
-   - general call requests
-   - highest valid gain selection
+   - error detection: overflow, underflow, i2c, progress, timeout
    - selectable blocking/non-blocking modes
+   - highest valid gain selection
+   - general call signalling            
+
 
   Author:          Bernhard Schneider <bernhard@neaptide.org><br>
   Available from:  https://github.com/bersch/MCP3424<br>
@@ -29,6 +30,6 @@ library for the Arduino.
   ------------ | -------------
   **MCP3421** | http://ww1.microchip.com/downloads/en/DeviceDoc/22003e.pdf<br>
   **MCP3422/3/4** | http://ww1.microchip.com/downloads/en/DeviceDoc/22088b.pdf<br>
-  **MCP3425** | http://ww1.microchip.com/downloads/en/DeviceDoc/22088b.pdf<br>
-  **MCP3426/7/8** | http://ww1.microchip.com/downloads/en/DeviceDoc/22088b.pdf<br>
+  **MCP3425** | http://ww1.microchip.com/downloads/en/DeviceDoc/22072b.pdf<br>
+  **MCP3426/7/8** | http://ww1.microchip.com/downloads/en/DeviceDoc/22226a.pdf<br>
   

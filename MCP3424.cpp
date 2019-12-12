@@ -33,17 +33,18 @@ uint8_t MCP3424::startNewConversion(Channel ch) {
 }
 
 /* tries to find the highest gain */
-Gain MCP3424::findGain(double& value) const {
+Gain MCP3424::findGain(double value) const {
 
     uint8_t g;
-    for(g = GAINx1; g <= GAINx8; g++) {
-      if (abs(value) * (1<<(g+1)) >= 2.048) {
+    
+    value = abs(value);
+    
+    for(g = GAINx1; g <= GAINx8; g++) 
+      if (value * (1<<(g+1)) >= 2.048) 
         return (Gain)g;
-      }
-    } 
+        
     return GAINx8;
 }    
-
 
 ConvStatus MCP3424::read(Channel ch, double& value, bool blocking) {
 
@@ -92,8 +93,8 @@ ConvStatus MCP3424::nb_read(Channel ch, double & value) {
       return R_IN_PROGRESS;
 
     if (cread.srate == SR18B) {
-        lval = (long)(int)(char)b2 << 16;
-        lval |= (uint16_t)b3 << 8 | b4;
+        lval = ~((( b2 & 0x80) << 16 ) - 1 ) // sign
+            | b2 << 16 | b3 << 8 | b4;
     } else {
         lval = (b2 << 8) | b3;
     }
