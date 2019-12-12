@@ -21,14 +21,14 @@ uint8_t MCP3424::generalCall(GCall_t call) const {
 }
 
 uint8_t MCP3424::writeConfReg(Channel ch) {
-    cwrite = creg[ch];
+    cwrite.reg = creg[ch].reg;
     Wire.beginTransmission(addr);
     Wire.write(cwrite.reg);
     return Wire.endTransmission();
 }
 
 uint8_t MCP3424::startNewConversion(Channel ch) {
-    creg[ch].rdy = 1;
+    creg[ch].bits.rdy = 1;
     return writeConfReg(ch);
 }
 
@@ -54,7 +54,7 @@ ConvStatus MCP3424::read(Channel ch, double& value, bool blocking) {
     ConvStatus err;
     uint32_t t0 = millis();
     do {
-        if ( (millis() - t0) > (conv_time[creg[ch].res]) )
+        if ( (millis() - t0) > (conv_time[creg[ch].bits.res]) )
           return R_TIMEOUT;
         err = nb_read(ch, value);
     } while (err == R_IN_PROGRESS);
@@ -69,37 +69,37 @@ ConvStatus MCP3424::nb_read(Channel ch, double & value) {
     uint8_t b2, b3, b4;
 
     if (cwrite.reg != creg[ch].reg)
-      if (creg[ch].cmode == CONTINUOUS)
+      if (creg[ch].bits.cmode == CONTINUOUS)
         writeConfReg(ch);
       else
         startNewConversion(ch);
 
-    Wire.requestFrom(addr, (uint8_t)((cwrite.res == R18B)?4:3));
+    Wire.requestFrom(addr, (uint8_t)((cwrite.bits.res == R18B)?4:3));
 
-    if (Wire.available() < ((cwrite.res == R18B)?4:3))
+    if (Wire.available() < ((cwrite.bits.res == R18B)?4:3))
       return R_I2C;
 
     b2 = Wire.read();
     b3 = Wire.read();
 
-    if (creg[ch].res == R18B)
+    if (creg[ch].bits.res == R18B)
       b4 = Wire.read();
 
     cread.reg = Wire.read();
 
     Wire.endTransmission();
 
-    if (cread.rdy == 1)
+    if (cread.bits.rdy == 1)
       return R_IN_PROGRESS;
 
-    if (cread.res == R18B) {
+    if (cread.bits.res == R18B) {
         lval = ~((( b2 & 0x80) << 16 ) - 1 ) // sign
             | b2 << 16 | b3 << 8 | b4;
     } else {
         lval = (b2 << 8) | b3;
     }
 
-    value = 0.001 * lval / (1 << (cread.res << 1)) / ( 1 << cread.pga);
+    value = 0.001 * lval / (1 << (cread.bits.res << 1)) / ( 1 << cread.bits.pga);
 
     if (value >  2.048) return R_OVERFLOW;
     if (value < -2.048) return R_UNDERFLOW;

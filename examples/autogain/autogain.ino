@@ -17,7 +17,7 @@ void show_v(double& value, _ConfReg r) {
     char v[24], buff[48];
 
     dtostrf(value,8,8,v);
-    sprintf(buff, "channel: %d, gain: %d, value: %s", r.ch, 1 << r.pga, v);
+    sprintf(buff, "channel: %d, gain: %d, value: %s", r.bits.ch, 1 << r.bits.pga, v);
     Serial.println(buff);
 }
 
@@ -28,12 +28,12 @@ void loop() {
     for (int i = (int)CH1; i <= (int)CH4; i++) {
         _ConfReg& c = adc.creg[(Channel)i];
         c.bits = { GAINx1, R12B, ONE_SHOT, (Channel)i, 1 };
-        ConvStatus err = adc.read(c.ch, value);
+        ConvStatus err = adc.read(c.bits.ch, value);
         if (err == R_OK) {
             show_v(value, c);
-            c.res = R18B;
-            c.pga = adc.findGain(value);
-            err = adc.read(c.ch, value);
+            c.bits.res = R18B;
+            c.bits.pga = adc.findGain(value);
+            err = adc.read(c.bits.ch, value);
             if (err == R_OK) {
                 show_v(value, c);
                 Serial.println();

@@ -34,14 +34,6 @@ const uint8_t pin_addr[] = {
 
 typedef struct  {
     union {
-        uint8_t reg;
-        struct __attribute__ ((__packed__)) {
-            Gain       pga   :2;
-            Resolution res   :2;
-            ConvType   cmode :1;
-            Channel    ch    :2;
-            uint8_t    rdy   :1;
-        };
         struct __attribute__ ((__packed__)) {
             Gain       pga   :2;
             Resolution res   :2;
@@ -49,6 +41,7 @@ typedef struct  {
             Channel    ch    :2;
             uint8_t    rdy   :1;
         } bits;
+        uint8_t reg;
     };
 } _ConfReg;
 
