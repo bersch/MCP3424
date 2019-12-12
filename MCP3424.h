@@ -19,7 +19,7 @@ extern "C" {
 
 typedef enum { ONE_SHOT, CONTINUOUS } ConvType;
 typedef enum { CH1, CH2, CH3, CH4 } Channel;
-typedef enum { SR12B, SR14B, SR16B, SR18B } SampleRate;
+typedef enum { R12B, R14B, R16B, R18B } Resolution; 
 typedef enum { GAINx1, GAINx2, GAINx4, GAINx8 } Gain;
 typedef enum { PIN_LOW, PIN_HIGH, PIN_FLOAT } PinType;
 typedef enum { R_OK, R_UNDERFLOW, R_OVERFLOW, R_I2C, R_IN_PROGRESS, R_TIMEOUT } ConvStatus;
@@ -37,14 +37,14 @@ typedef struct  {
         uint8_t reg;
         struct __attribute__ ((__packed__)) {
             Gain       pga   :2;
-            SampleRate srate :2;
+            Resolution res   :2;
             ConvType   cmode :1;
             Channel    ch    :2;
             uint8_t    rdy   :1;
         };
         struct __attribute__ ((__packed__)) {
             Gain       pga   :2;
-            SampleRate srate :2;
+            Resolution res   :2;
             ConvType   cmode :1;
             Channel    ch    :2;
             uint8_t    rdy   :1;

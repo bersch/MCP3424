@@ -27,11 +27,11 @@ void loop() {
 
     for (int i = (int)CH1; i <= (int)CH4; i++) {
         _ConfReg& c = adc.creg[(Channel)i];
-        c.bits = { GAINx1, SR12B, ONE_SHOT, (Channel)i, 1 };
+        c.bits = { GAINx1, R12B, ONE_SHOT, (Channel)i, 1 };
         ConvStatus err = adc.read(c.ch, value);
         if (err == R_OK) {
             show_v(value, c);
-            c.srate = SR18B;
+            c.srate = R18B;
             c.pga = adc.findGain(value);
             err = adc.read(c.ch, value);
             if (err == R_OK) {

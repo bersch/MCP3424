@@ -11,7 +11,7 @@ void setup() {
 
     adc.generalCall(GC_RESET);
 
-    adc.creg[CH1].bits = { GAINx1, SR18B, CONTINUOUS, CH1, 1 };
+    adc.creg[CH1].bits = { GAINx1, R18B, CONTINUOUS, CH1, 1 };
 }
 
 double value;

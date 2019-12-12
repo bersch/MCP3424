@@ -13,10 +13,10 @@ void setup() {
 
     adc.generalCall(GC_RESET);
 
-    adc.creg[CH1].bits = { GAINx1, SR12B, ONE_SHOT, CH1, 1 };
-    adc.creg[CH2].bits = { GAINx1, SR14B, ONE_SHOT, CH2, 1 };
-    adc.creg[CH3].bits = { GAINx1, SR16B, ONE_SHOT, CH3, 1 };
-    adc.creg[CH4].bits = { GAINx1, SR18B, ONE_SHOT, CH4, 1 };
+    adc.creg[CH1].bits = { GAINx1, R12B, ONE_SHOT, CH1, 1 };
+    adc.creg[CH2].bits = { GAINx1, R14B, ONE_SHOT, CH2, 1 };
+    adc.creg[CH3].bits = { GAINx1, R16B, ONE_SHOT, CH3, 1 };
+    adc.creg[CH4].bits = { GAINx1, R18B, ONE_SHOT, CH4, 1 };
 
 }
 
