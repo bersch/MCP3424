@@ -45,15 +45,14 @@ void loop() {
           case CH3: active_ch = CH4; break;
           case CH4: active_ch = CH1; break;
         }
-        adc.startNewConversion(active_ch);
+        if (!blocking)
+          adc.startNewConversion(active_ch);
     } else {
-#if 0        
         Serial.print("CH");
         Serial.print(1+active_ch, DEC);
         Serial.print(": ");
         Serial.print("error: ");
         Serial.println(errmsg[error]);
-#endif        
     }
     asm volatile ("nop");
 }
